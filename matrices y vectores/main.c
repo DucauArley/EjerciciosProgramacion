@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void mostrarEmpleados(char[][20], int[], char[], float[], int);
 void mostrarEmpleado(char[], int, char, float);
@@ -13,7 +14,7 @@ int main()
     float sueldo[5];
     int i;
 
-    for(i=0;i<2;i++)
+    for(i=0;i<5;i++)
     {
         printf("Ingrese un nombre\n");
         fflush(stdin);
@@ -33,6 +34,10 @@ int main()
 
     mostrarEmpleados(nombres, legajos, sexo, sueldo, i);
 
+    ordenamiento(nombres, legajos, sexo, sueldo, i);
+
+    mostrarEmpleados(nombres, legajos, sexo, sueldo, i);
+
     return 0;
 }
 
@@ -40,6 +45,7 @@ void mostrarEmpleados(char nombres[][20], int legajo[], char sexo[], float sueld
 {
     int i;
 
+    printf("Nombres  Legajo  Sexo  Sueldo \n");
     for(i=0;i<tam;i++)
     {
         mostrarEmpleado(nombres[i], legajo[i], sexo[i], sueldo[i]);
@@ -49,7 +55,7 @@ void mostrarEmpleados(char nombres[][20], int legajo[], char sexo[], float sueld
 
 void mostrarEmpleado(char nombres[], int legajo, char sexo, float sueldo)
 {
-    printf("%s %d %c %d \n", nombres, legajo, sexo, sueldo);
+    printf("%s   %3d   %5c    %.2f    \n", nombres, legajo, sexo, sueldo);
 }
 
 void ordenamiento(char nombres[][20], int legajo[], char sexo[], float sueldo[], int tam)
@@ -60,7 +66,6 @@ void ordenamiento(char nombres[][20], int legajo[], char sexo[], float sueldo[],
     float auxF;
     char auxS[20];
     char auxC;
-
 
     for(i=0;i<tam-1;i++)
     {
