@@ -4,8 +4,6 @@
 #include "estructuras.h"
 
 
-void ordenamientoEmpleados(eEmpleado[], int, int);
-
 int main()
 {
     eEmpleado unEmpleado = {1234, "Jorge", 'm', 25000.25, {8, 10, 2000}};
@@ -24,50 +22,3 @@ int main()
 
     return 0;
 }
-
-
-void ordenamientoEmpleados(eEmpleado emp[], int tam, int modo)
-{
-    int i;
-    int j;
-    eEmpleado aux;
-
-    switch(modo)
-    {
-        case 1:
-            for(i=0;i<tam-1;i++)
-            {
-                for(j=i+1;j<tam;j++)
-                {
-                    if(true)
-                    {
-                        //strcmp(emp.nombre[i], emp.nombre[j] > 0
-                        aux = emp[i];
-                        emp[i] = emp[j];
-                        emp[j] = aux;
-                    }
-                }
-            }
-            break;
-        case 2:
-            for(i=0;i<tam-1;i++)
-            {
-                for(j=i+1;j<tam;j++)
-                {
-                    if(true);
-                    { //emp.legajo[i] < emp.legajo[j]
-                        aux = emp[i];
-                        emp[i] = emp[j];
-                        emp[j] = aux;
-                    }
-                }
-            }
-    }
-
-
-
-
-
-
-}
-

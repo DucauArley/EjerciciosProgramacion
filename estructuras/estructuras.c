@@ -65,5 +65,78 @@ void mostrarEmpleados(eEmpleado emp[], int tam)
 
 }
 
+void ordenamientoEmpleados(eEmpleado emp[], int tam, int modo)
+{
+    int i;
+    int j;
+    eEmpleado aux;
 
-
+     switch(modo)
+    {
+        case 1:
+            for(i=0;i<tam-1;i++)
+            {
+                for(j=i+1;j<tam;j++)
+                {
+                    if(strcmp(emp[i].nombre, emp[j].nombre) > 0)
+                    {
+                        aux = emp[i];
+                        emp[i] = emp[j];
+                        emp[j] = aux;
+                    }
+                }
+            }
+            break;
+        case 2:
+            for(i=0;i<tam-1;i++)
+            {
+                for(j=i+1;j<tam;j++)
+                {
+                    if(emp[i].legajo > emp[j].legajo)
+                    {
+                        aux = emp[i];
+                        emp[i] = emp[j];
+                        emp[j] = aux;
+                    }
+                }
+            }
+            break;
+        case 3:
+            for(i=0;i<tam-1;i++)
+            {
+                for(j=i+1;j<tam;j++)
+                {
+                    if(emp[i].sueldo > emp[j].sueldo)
+                    {
+                        aux = emp[i];
+                        emp[i] = emp[j];
+                        emp[j] = aux;
+                    }
+                }
+            }
+            break;
+        case 4:
+            for(i=0;i<tam-1;i++)
+            {
+                for(j=i+1;j<tam;j++)
+                {
+                    if(emp[i].sexo > emp[j].sexo)
+                    {
+                        aux = emp[i];
+                        emp[i] = emp[j];
+                        emp[j] = aux;
+                    }
+                    else
+                    {
+                        if(emp[i].legajo > emp[j].legajo)
+                        {
+                            aux = emp[i];
+                            emp[i] = emp[j];
+                            emp[j] = aux;
+                        }
+                    }
+                }
+            }
+            break;
+    }
+}

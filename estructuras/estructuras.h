@@ -26,3 +26,4 @@ eEmpleado conseguirEmpleado();
 
 void mostrarEmpleados(eEmpleado[], int);
 
+void ordenamientoEmpleados(eEmpleado[], int, int);
