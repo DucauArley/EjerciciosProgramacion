@@ -28,6 +28,10 @@ int buscarEmpleado(eEmpleado[], int, int);
 
 void altaEmpleado(eEmpleado[], int);
 
+void bajaEmpleado(eEmpleado [], int);
+
+void modificacionEmpleado(eEmpleado [], int);
+
 void mostarEmpleado(eEmpleado);
 
 void mostrarEmpleados(eEmpleado[], int);
@@ -52,7 +56,7 @@ int main()
                 break;
             case 2:
                 system("cls");
-
+                bajaEmpleado(gente, TAM);
                 break;
             case 3:
                 system("cls");
@@ -116,6 +120,7 @@ int buscarLibre(eEmpleado emp[], int tam)
     for(i=0;i<tam;i++)
     {
         if(emp[i].isEmpty == 1)
+
         {
             indice = i;
             break;
@@ -136,6 +141,7 @@ int buscarEmpleado(eEmpleado emp[], int tam, int legajo)
         {
             indice = i;
             break;
+
         }
     }
 
@@ -196,6 +202,117 @@ void altaEmpleado(eEmpleado emp[], int tam)
     }
 }
 
+void bajaEmpleado(eEmpleado emp[], int tam)
+{
+    int legajo;
+    int esta;
+    char respuesta;
+
+    printf("ingrese el legajo\n");
+    scanf("%d", &legajo);
+
+    esta = buscarEmpleado(emp, tam, legajo);
+
+    if(esta != -1)
+    {
+        mostarEmpleado(emp[esta]);
+
+        printf("Desea eliminar a el empleado? s/n \n");
+        fflush(stdin);
+        scanf("%c", &respuesta);
+
+        if(respuesta == 's')
+        {
+            emp[esta].isEmpty = 1;
+            printf("----------BAJA EXITOSA---------\n");
+        }
+        else
+        {
+            printf("Se cancelo la operacion\n");
+        }
+
+
+    }
+    else
+    {
+        printf("El empleado no existe\n");
+    }
+
+}
+
+void modificacionEmpleado(eEmpleado emp[], int tam)
+{
+    int legajo;
+    int esta;
+    int opcion;
+    char respuesta;
+    eEmpleado aux;
+
+    printf("Ingrese el legajo\n");
+    scanf("%d", &legajo);
+
+    esta = buscarEmpleado(emp, tam, legajo);
+
+    if(esta != -1)
+    {
+        mostarEmpleado(emp[esta]);
+
+        printf("Que desea modificar?");
+        printf("1- Nombre");
+        printf("2- Sexo");
+        printf("3- Sueldo");
+        printf("4- Fecha de ingreso");
+        scanf("%d", &opcion);
+
+
+        switch(opcion)
+        {
+            case 1:
+                printf("Ingrese el nombre\n");
+                fflush(stdin);
+                gets(aux.nombre);
+                break;
+            case 2:
+                printf("Ingrese el sexo\n");
+                fflush(stdin);
+                scanf("%c", &aux.sexo);
+                break;
+            case 3:
+                printf("Ingrese el sueldo\n");
+                scanf("%f", &aux.sueldo);
+                break;
+            case 4:
+                printf("Ingrese la fecha de ingreso d m a \n");
+                scanf("%d %d %d", &aux.fechaIngreso.dia, &aux.fechaIngreso.mes, &aux.fechaIngreso.anio);
+                break;
+            default:
+                printf("El numero ingresado no es valido");
+        }
+
+        printf("Desea realizar los cambios?");
+        scanf("%c", &respuesta);
+
+        if(respuesta == 's')
+        {
+            emp[esta] = aux;
+            printf("---------MODIFICACION EXITOSA------");
+        }
+        else
+        {
+            printf("Se ha cancelado la modificacion");
+        }
+    }
+    else
+    {
+        printf("El empleado no existe");
+    }
+
+
+
+
+}
+
+
 void mostarEmpleado(eEmpleado emp)
 {
     printf("\nLegajo: %d\n", emp.legajo);
@@ -216,6 +333,10 @@ void mostrarEmpleados(eEmpleado emp[], int tam)
         {
             mostarEmpleado(emp[i]);
         }
+        else
+        {
+            printf("No hay empleados\n");
+            break;
+        }
     }
-
 }
