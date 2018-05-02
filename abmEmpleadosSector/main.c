@@ -51,6 +51,8 @@ void cantidadDeEmpleadosPorSector(eEmpleado [], int, eSector [], int);
 
 void totalSueldosPorSector(eEmpleado [], int, eSector []);
 
+void empleadosQueMasGananPorSector(eEmpleado [], int, eSector [], int);
+
 int mostrarSector(eSector [], int);
 
 void mostarEmpleado(eEmpleado, eSector [], int);
@@ -113,6 +115,14 @@ int main()
                 break;
             case 10:
                 system("cls");
+                totalSueldosPorSector(gente, TAM, sectores);
+                break;
+            case 11:
+                system("cls");
+                empleadosQueMasGananPorSector(gente, TAM, sectores, TAMSEC);
+                break;
+            case 12:
+                system("cls");
                 salir = 1;
                 break;
             default:
@@ -140,7 +150,8 @@ int menu()
     printf("8- Empleados por sector\n");
     printf("9- Cantidad de empleados por sector\n");
     printf("10- Total sueldos por sector\n");
-    printf("11- Salir\n");
+    printf("11- Empleados que mas ganan por sector\n");
+    printf("12- Salir\n");
 
 
     scanf("%d", &opcion);
@@ -554,6 +565,51 @@ void totalSueldosPorSector(eEmpleado emp[], int tam, eSector sector[])
         printf("EL total de sueldos es: %d\n", acumuladorSueldo);
     }
 
+}
+
+void empleadosQueMasGananPorSector(eEmpleado emp[], int tam, eSector sector[], int tamsec)
+{
+    int i;
+    int j;
+    int h;
+    eEmpleado aux;
+    int contadorSueldo[] = {1, 1, 1, 1, 1};
+
+    for(j=0;j<tam-1;j++)
+    {
+        for(h=j+1;h<tam;h++)
+        {
+            if(emp[j].isEmpty == 0 && emp[h].isEmpty == 0)
+            {
+                if(emp[j].sueldo < emp[h].sueldo)
+                {
+                    aux = emp[j];
+                    emp[j] = emp[h];
+                    emp[h] = aux;
+                }
+            }
+        }
+    }
+
+    for(i=0;i<tamsec;i++)
+    {
+        printf("\nEl o los empleados que mas ganan en el sector %s es o son:\n", sector[i].nombre);
+        for(j=1;j<tam;j++)
+        {
+            if(emp[0].sueldo == emp[j].sueldo && emp[j].idSector == sector[i].id)
+            {
+                contadorSueldo[i] ++;
+            }
+        }
+
+        for(h=0;h<tam;h++)
+        {
+            if(emp[h].idSector == sector[i].id && emp[h].isEmpty == 0)
+            {
+                mostarEmpleado(emp[h], sector, tamsec);
+            }
+        }
+    }
 }
 
 
