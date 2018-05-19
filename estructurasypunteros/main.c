@@ -30,6 +30,7 @@ int main()
     eMascota unaMascota;
     eMascota grupo[5] ={{2311, "Mauricio", 14, {3, "Gato"}, 1}, {2514, "Jorge", 7, {2, "Perro"}, 1}, {1145, "Roberto", 14, {1, "Reptil"}, 1}};
     int respuesta;
+    eMascota nuevaMascota;
 
 
     (grupo + 3)->estado = 0;
@@ -42,15 +43,15 @@ int main()
 
     modificarEdadYTipo(&unaMascota, 20);
 
-    respuesta = cargarMascota(grupo);
+    respuesta = cargarMascota(&nuevaMascota);
 
     if(respuesta == 1)
     {
-        printf("\n-----Se ha cargardo exitosamente-----\n");
+        *(grupo + 3) = nuevaMascota;
     }
     else
     {
-        printf("\n-------La mascota no se ha podido cargar-------\n");
+        printf("No se ha podido cargar la macota\n");
     }
 
     mostrarMascotas(grupo, 5);
