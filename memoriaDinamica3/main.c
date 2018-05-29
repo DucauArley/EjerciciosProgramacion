@@ -32,6 +32,7 @@ int main()
 
     printf("%d %s %.2f\n", unEmpleado->legajo, unEmpleado->nombre, unEmpleado->sueldo);
 
+    free(unEmpleado);
 
     return 0;
 }

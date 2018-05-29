@@ -63,6 +63,8 @@ int main()
     }
     printf("\n\n");
 
+    free(aux);
+    free(vector);
 
     return 0;
 }
