@@ -14,24 +14,36 @@ typedef struct
 
 void mostrarAutos(eAuto*, int);
 void mostrarAuto(eAuto*);
-eAuto* new_Auto();
-eAuto* new_Auto_Param(int, char*, char*, char*, int);
+void guardarAutos(eAuto*, int);
 int buscarLibre(eAuto*, int);
-int cargarAutos(eAuto*, int, char*);
+eAuto* cargarAutos(eAuto*, int*);
 void inicializarAutos(eAuto*, int);
-eAuto* agrandarArrayAutos(eAuto*, int);
-void parseAutos(eAuto*);
+eAuto* newArrayAutos(int);
+eAuto* agrandarArray(eAuto* autos, int* tam);
 
 int main()
 {
-    eAuto* autos;
+    eAuto* flota;
     int tam = 20;
 
-    autos = (eAuto*) malloc(sizeof(eAuto) * 20);
 
-    inicializarAutos(autos, &tam);
+    flota = newArrayAutos(tam);
 
-    mostrarAutos(autos, tam);
+    if(flota == NULL)
+    {
+        printf("No se pudo conseguir memoria\n");
+        exit(1);
+    }
+
+
+    flota = cargarAutos(flota, &tam);
+
+    printf("tamanio del array %d\n", tam);
+
+    mostrarAutos(flota, tam);
+
+    guardarAutos(flota, tam);
+
 
     return 0;
 }
@@ -66,70 +78,35 @@ void mostrarAutos(eAuto* autos, int tam)
 
 }
 
-eAuto* new_Auto()
+void inicializarAutos(eAuto* autos, int tam)
 {
+    int i;
 
-    eAuto* nuevoAuto;
-
-    nuevoAuto = (eAuto*)malloc(sizeof(eAuto));
-    if(nuevoAuto != NULL)
+    if(autos != NULL && tam > 0)
     {
-        nuevoAuto->anio = 0;
-        strcpy(nuevoAuto->modelo, "");
-        strcpy(nuevoAuto->color, "");
-        strcpy(nuevoAuto->marca, "");
-        nuevoAuto->id = 0;
-        nuevoAuto->estado = 0;
+        for(i=0;i<tam;i++)
+        {
+            (autos + i)->estado = 0;
+        }
     }
-    return nuevoAuto;
 
 }
 
-
-
-eAuto* new_Auto_Param(int id, char* modelo, char* marca, char* color, int anio)
+eAuto* newArrayAutos(int tam)
 {
+    eAuto* autos;
 
-    eAuto* nuevoAuto;
-
-    nuevoAuto = new_Auto();
-
-    if(nuevoAuto != NULL)
+    if(tam > 0)
     {
-        nuevoAuto->id = id;
-        strcpy(nuevoAuto->modelo, modelo);
-        strcpy(nuevoAuto->color, color);
-        strcpy(nuevoAuto->marca, marca);
-        nuevoAuto->anio = anio;
-        nuevoAuto->estado = 1;
-    }
-    return nuevoAuto;
+        autos = (eAuto*) malloc(sizeof(eAuto) * tam);
 
-}
-
-int cargarAutos(eAuto* autos, int tam, char* path)
-{
-    int indice;
-    eAuto Auxiliar;
-    int cant;
-    int total = 0;
-
-
-    indice = buscarLibre(autos, tam);
-
-    while(indice == -1)
-    {
-        autos = agrandarArrayAutos(autos, tam);
-        indice = buscarLibre(autos, tam);
+        if(autos != NULL)
+        {
+            inicializarAutos(autos, tam);
+        }
     }
 
-    parseAutos(Auxiliar);
-
-    *(autos+indice) = Auxiliar;
-    total++;
-
-    fclose(f);
-    return total;
+    return autos;
 }
 
 int buscarLibre(eAuto* autos, int tam)
@@ -137,107 +114,129 @@ int buscarLibre(eAuto* autos, int tam)
     int i;
     int indice = -1;
 
-    for(i=0; i<tam; i++)
+    for(i=0;i<tam;i++)
     {
-        if((autos+i)->estado == 0)
-        {
-            indice = i;
-            break;
-        }
+        if((autos + i)->estado == 0)
+            {
+                indice = i;
+                break;
+            }
     }
+
     return indice;
 }
 
-void inicializarAutos(eAuto* autos, int tam)
+eAuto* agrandarArray(eAuto* autos, int* tam)
 {
+    int tamAux = (*tam) + 20;
+    eAuto* aux;
     int i;
 
-    if(autos != NULL && tam > 0)
+    aux = (eAuto*) realloc(autos, sizeof(eAuto) * tamAux);
+
+    if(aux != NULL)
     {
-        for( i=0; i<tam; i++)
+        autos = aux;
+        for(i=*tam;i<tamAux;i++)
         {
-            (autos+i)->estado = 0;
+            (autos + i)->estado = 0;
         }
+        *tam = tamAux;
+        free(aux);
     }
+    return autos;
 }
 
-eAuto* agrandarArrayAutos(eAuto* array, int* tam)
+eAuto* cargarAutos(eAuto* autos, int* tam)
 {
-    int tamAux;
+    FILE* archivo;
     int indice;
-    int i;
-
-    indice = buscarLibre(array, *tam);
-
-    while(indice == -1)
-    {
-        indice = buscarLibre(array, *tam);
-        tamAux = *(tam + 20);
-        array = (eAuto*) realloc(array, tamAux * sizeof(eAuto));
-        for(i=tam;i<tamAux;i++)
-        {
-            inicializarAutos(array, tamAux);
-        }
-    }
-    return array;
-}
-
-void parseAutos(eAuto* auto1)
-{
-
-    int cant;
-    int id;
-    char marca[50];
+    int total = 0;
+    int cantidad;
+    char id[50];
     char modelo[50];
+    char marca[50];
     char color[50];
-    char idCad[20];
-    char anioCad[20];
-    int anio;
+    char anio[50];
+    eAuto aux;
 
-    FILE* f;
+    archivo = fopen("autos.csv", "r");
 
-    f = fopen("autos.csv", "r");
-
-    if(f == NULL)
+    if(archivo == NULL)
     {
-        printf("Error al abrir el fichero\n");
+        printf("No se pudo abrir el archivo\n");
         exit(1);
     }
-    else
+
+    while(!feof(archivo))
     {
-        //cant = fscanf(f, "%d , %s , %s , %d, %s \n", &id, marca, color, &anio, modelo);
-        // cant = fscanf(f, "%d , %[0-z], %[0-z] , %d, %[0-z]\n", &id, marca, color, &anio, modelo);
-        cant = fscanf(f, "%[^,] , %[^,], %[^,] , %[^,], %[^\n] \n", idCad, marca, color, anioCad, modelo);
+        indice = buscarLibre(autos, *tam);
 
-        if( cant != 5)
+        if(indice == -1)
         {
+            agrandarArray(autos, tam);
+            fflush(stdin);
+            indice = buscarLibre(autos, *tam);
+        }
 
-            if(feof(f))
+
+        cantidad = fscanf(archivo, "%[^,] , %[^,], %[^,] , %[^,], %[^\n] \n", id, marca, color, anio, modelo);
+
+         if(cantidad != 5)
+        {
+            if(feof(archivo))
             {
                 break;
             }
             else
             {
-                printf("Problema para leer el archivo\n");
-
+                printf("No se pudo leer el ultimo registro\n");
                 break;
             }
         }
 
-        auto1->estado = 1;
+        aux.id = atoi(id);
+        strcpy(aux.marca,marca);
+        strcpy(aux.modelo,modelo);
+        strcpy(aux.color,color);
+        aux.anio = atoi(anio);
+        aux.estado = 1;
 
-        id = atoi(idCad);
-        anio = atoi(anioCad);
+        *(autos + indice) = aux;
 
-        auto1->id = id;
-        auto1->anio = anio;
-        strcpy(auto1->marca, marca);
-        strcpy(auto1->modelo, modelo);
-        strcpy(auto1->color, color);
+        total ++;
     }
 
+    fclose(archivo);
+    printf("Se guardaron %d autos\n", total);
 
-
-    fclose(f);
+    return autos;
 }
+
+void guardarAutos(eAuto* autos, int tam)
+{
+    FILE* archivo;
+    int i;
+
+    archivo = fopen("autos.txt", "w");
+
+    if(archivo != NULL)
+    {
+        for(i=0; i<tam; i++)
+        {
+            if( (autos + i)->estado)
+            {
+                fprintf(archivo,"%d,%s,%s,%s,%d\n",(autos+i)->id, (autos+i)->marca, (autos+i)->modelo, (autos+i)->color, (autos+i)->anio);
+            }
+        }
+        fclose(archivo);
+    }
+    else
+    {
+        printf("No se pudo abrir el archivo\n");
+    }
+
+}
+
+
 
