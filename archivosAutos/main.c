@@ -122,7 +122,6 @@ int buscarLibre(eAuto* autos, int tam)
                 break;
             }
     }
-
     return indice;
 }
 
@@ -142,7 +141,6 @@ eAuto* agrandarArray(eAuto* autos, int* tam)
             (autos + i)->estado = 0;
         }
         *tam = tamAux;
-        free(aux);
     }
     return autos;
 }
@@ -153,11 +151,11 @@ eAuto* cargarAutos(eAuto* autos, int* tam)
     int indice;
     int total = 0;
     int cantidad;
-    char id[50];
+    char id[20];
     char modelo[50];
     char marca[50];
     char color[50];
-    char anio[50];
+    char anio[20];
     eAuto aux;
 
     archivo = fopen("autos.csv", "r");
@@ -174,13 +172,13 @@ eAuto* cargarAutos(eAuto* autos, int* tam)
 
         if(indice == -1)
         {
-            agrandarArray(autos, tam);
-            fflush(stdin);
+
+            autos = agrandarArray(autos, tam);
             indice = buscarLibre(autos, *tam);
         }
 
 
-        cantidad = fscanf(archivo, "%[^,] , %[^,], %[^,] , %[^,], %[^\n] \n", id, marca, color, anio, modelo);
+        cantidad = fscanf(archivo, "%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id, marca, color, anio, modelo);
 
          if(cantidad != 5)
         {

@@ -10,35 +10,64 @@ int employee_compare(void* pEmployeeA,void* pEmployeeB)
 }
 
 
-void employee_print(Employee* this)
+void employee_print(Employee* empleado)
 {
+    printf("%d ", empleado->id);
+    printf("%s ", empleado->nombre);
+    printf("%s ", empleado->apellido);
+}
 
+void employee_printLots(Employee* empleado, int tam)
+{
+    int i;
+
+    if(empleado != NULL)
+    {
+        for(i=0;i<tam;i++)
+        {
+            if((empleado + i)->estado == 1)
+            {
+                employee_print(empleado+i);
+            }
+        }
+    }
 }
 
 
-Employee* employee_new(void)
+Employee* employee_new()
 {
+    Employee* returnAux;
 
-    Employee* returnAux = NULL;
+    returnAux = (Employee*) malloc(sizeof(Employee));
 
+    if(returnAux != NULL)
+    {
+        returnAux->id = -1;
+        returnAux->estado = 0;
+        strcpy(returnAux->nombre, "");
+        strcpy(returnAux->apellido, "");
+    }
+    else
+    {
+        printf("No se pudo conseguir espacio en memoria\n");
+    }
     return returnAux;
-
 }
 
-void employee_delete(Employee* this)
+void employee_delete(Employee* empleado)
 {
 
 
 }
 
-int employee_setId(Employee* this, int id)
+int employee_setId(Employee* empleado, int id)
 {
 
     return 0;
 
 }
 
-int employee_getId(Employee* this)
+int employee_getId(Employee* empleado)
 {
 
     return 0;
