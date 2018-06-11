@@ -54,9 +54,21 @@ Employee* employee_new()
     return returnAux;
 }
 
-void employee_delete(Employee* empleado)
+void employee_delete(Employee* empleado, ArrayList* listaEmpleados)
 {
+    int i;
+    int tam;
+    int id;
 
+    tam = al_len(listaEmpleados);
+    printf("Ingrese el id del empleado que desea eliminar\n");
+    scanf("%d", &id);
+
+    for(i=0;i<tam;i++)
+    {
+        if()
+
+    }
 
 }
 

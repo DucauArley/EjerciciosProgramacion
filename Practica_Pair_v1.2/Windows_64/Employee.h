@@ -31,7 +31,7 @@ typedef struct
 int employee_compare(void* pEmployeeA,void* pEmployeeB);
 void employee_print(Employee*);
 Employee* employee_new();
-void employee_delete(Employee*);
+void employee_delete(Employee*,ArrayList*);
 int employee_setId(Employee*, int id);
 int employee_getId(Employee*);
 #endif // _EMPLOYEE_H

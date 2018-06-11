@@ -85,3 +85,20 @@
 	"ArrayList.h"
 	"Employee.h"
 
+1528507403 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+	"Employee.h"
+
+1528507403 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\arraylist.h
+
+1528739558 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\employee.h
+
+1528507403 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+	"Employee.h"
+
