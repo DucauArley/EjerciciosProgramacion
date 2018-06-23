@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1529704849 source:c:\users\alumno\desktop\parcial2\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1529704849 c:\users\alumno\desktop\parcial2\arraylist.h
+
+1529715691 source:c:\users\alumno\desktop\parcial2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+
