@@ -107,6 +107,8 @@ int al_deleteArrayList(ArrayList* this)
     if(this != NULL)
     {
         free(this);
+        this->size = 0;
+        this = NULL;
         returnAux = 0;
     }
 

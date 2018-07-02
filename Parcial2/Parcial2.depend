@@ -12,3 +12,16 @@
 	<stdlib.h>
 	"ArrayList.h"
 
+1529701532 source:c:\users\power user\desktop\ejerciciosprogramacion-master\parcial2\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1529701532 c:\users\power user\desktop\ejerciciosprogramacion-master\parcial2\arraylist.h
+
+1530479462 source:c:\users\power user\desktop\ejerciciosprogramacion-master\parcial2\main.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+

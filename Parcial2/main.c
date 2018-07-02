@@ -23,6 +23,8 @@ void informar(ArrayList*, ArrayList*);
 
 int ordenar(void*, void*);
 
+int Esta(ArrayList*, eTramite*);
+
 void mostrarTramite(eTramite*);
 
 
@@ -89,6 +91,8 @@ int main()
 void agregarUrgente(ArrayList* urgente)
 {
     eTramite* tramite;
+    int esta;
+
     tramite = (eTramite*) malloc(sizeof(eTramite));
 
     if(urgente != NULL && tramite != NULL)
@@ -96,16 +100,25 @@ void agregarUrgente(ArrayList* urgente)
         printf("Ingrese su dni\n");
         scanf("%d", &(tramite->dni));
 
-        while(tramite->dni<0)
+        esta = Esta(urgente, tramite);
+
+        if(esta != -1)
         {
-            printf("Reingrese su dni\n");
-            scanf("%d", &(tramite->dni));
+            while(tramite->dni<0)
+            {
+                printf("Reingrese su dni\n");
+                scanf("%d", &(tramite->dni));
+            }
+
+            turnoUrgente ++;
+
+            tramite->turno = turnoUrgente;
+            al_add(urgente, tramite);
         }
-
-        turnoUrgente ++;
-
-        tramite->turno = turnoUrgente;
-        al_add(urgente, tramite);
+        else
+        {
+            printf("Ya tiene turno\n");
+        }
     }
 
 }
@@ -113,6 +126,8 @@ void agregarUrgente(ArrayList* urgente)
 void agregarRegular(ArrayList* regular)
 {
     eTramite* tramite;
+    int esta;
+
     tramite = (eTramite*) malloc(sizeof(eTramite));
 
     if(regular != NULL && tramite != NULL)
@@ -120,16 +135,25 @@ void agregarRegular(ArrayList* regular)
         printf("Ingrese su dni\n");
         scanf("%d", &(tramite->dni));
 
-        while(tramite->dni<0)
+        esta = Esta(regular, tramite);
+
+        if(esta != -1)
         {
-            printf("Reingrese su dni\n");
-            scanf("%d", &(tramite->dni));
+            while(tramite->dni<0)
+            {
+                printf("Reingrese su dni\n");
+                scanf("%d", &(tramite->dni));
+            }
+
+            turnoRegular ++;
+
+            tramite->turno = turnoRegular;
+            al_add(regular, tramite);
         }
-
-        turnoRegular ++;
-
-        tramite->turno = turnoRegular;
-        al_add(regular, tramite);
+        else
+        {
+            printf("Ya tiene turno \n");
+        }
     }
 
 }
@@ -241,20 +265,17 @@ void informar(ArrayList* urgente, ArrayList* regular)
 
     }
 
-
-
-
 }
 
 int ordenar(void* tramite1, void* tramite2)
 {
     if(((eTramite*)tramite1)->dni > ((eTramite*)tramite2)->dni)
     {
-        return -1;
-    }
-    if(((eTramite*)tramite1)->dni > ((eTramite*)tramite2)->dni)
-    {
         return 1;
+    }
+    if(((eTramite*)tramite1)->dni < ((eTramite*)tramite2)->dni)
+    {
+        return -1;
     }
     return 0;
 
@@ -269,4 +290,32 @@ void mostrarTramite(eTramite* tramite)
         printf("Turno: %d\n", tramite->turno);
     }
 }
+
+int Esta(ArrayList* array, eTramite* tramite)
+{
+    eTramite* tramite2;
+    int j;
+    int tam = al_len(array);
+    int retorno = 0;
+
+    tramite2 = (eTramite*) malloc(sizeof(eTramite));
+
+    if(tramite != NULL && tramite2 != NULL)
+    {
+        for(j=0;j<tam;j++)
+        {
+            tramite2 = al_get(array, j);
+
+            if(tramite->dni == tramite2->dni)
+            {
+                retorno = -1;
+                break;
+            }
+        }
+    }
+
+    return retorno;
+}
+
+
 
