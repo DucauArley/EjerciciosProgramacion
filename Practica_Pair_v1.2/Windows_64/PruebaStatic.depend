@@ -85,20 +85,31 @@
 	"ArrayList.h"
 	"Employee.h"
 
-1528507403 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\main.c
+1531415235 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	"ArrayList.h"
 	"Employee.h"
+	"parser.h"
 
-1528507403 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\arraylist.h
+1530579759 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\arraylist.h
 
-1528739558 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\employee.h
+1531414903 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\employee.h
 
-1528507403 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\parser.c
+1531001801 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\parser.c
 	<stdio.h>
 	<stdlib.h>
 	"ArrayList.h"
 	"Employee.h"
+	"string.h"
+
+1531414903 source:c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\employee.c
+	<stdio.h>
+	<stdlib.h>
+	"ArrayList.h"
+	"Employee.h"
+	"string.h"
+
+1531001286 c:\users\arleyzohan\desktop\ejerciciosprogramacion-master\practica_pair_v1.2\windows_64\parser.h
 

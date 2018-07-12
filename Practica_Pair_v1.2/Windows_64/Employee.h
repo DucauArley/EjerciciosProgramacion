@@ -31,9 +31,20 @@ typedef struct
 int employee_compare(void* pEmployeeA,void* pEmployeeB);
 void employee_print(Employee*);
 Employee* employee_new();
-void employee_delete(Employee*,ArrayList*);
-int employee_setId(Employee*, int id);
+void employee_printLots(ArrayList*,int, int);
+void employee_printAll(ArrayList*);
+void employee_delete(ArrayList*);
+void employee_add(ArrayList*);
+int employee_setId(Employee*, int);
 int employee_getId(Employee*);
+int employee_setEstado(Employee*, int);
+int employee_getEstado(Employee*);
+int employee_setNombre(Employee*, char*);
+char* employee_getNombre(Employee*);
+int employee_setApellido(Employee*, char*);
+char* employee_getApellido(Employee*);
+int esta(ArrayList*, int);
+
 #endif // _EMPLOYEE_H
 
 

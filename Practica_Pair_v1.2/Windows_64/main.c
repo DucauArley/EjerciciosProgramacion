@@ -3,6 +3,7 @@
 #include <string.h>
 #include "ArrayList.h"
 #include "Employee.h"
+#include "parser.h"
 
 /****************************************************
     Menu:
@@ -17,48 +18,82 @@
 
 int main()
 {
-    ArrayList* listaEmpleados;//puntero apuntando a cualquier lado
-    Employee* aux;
-    Employee* miEmpleado;
-    Employee* otroEmpleado;
+    int opcion;
+    int salir = 0;
+    ArrayList* lista;
+    int ok;
+    int desde;
+    int hasta;
 
-    listaEmpleados = al_newArrayList();
+    lista = al_newArrayList();
 
-    miEmpleado = (Employee*) malloc(sizeof(Employee));//Esto va en el employee.c
-    otroEmpleado = (Employee*) malloc(sizeof(Employee));
-
-    //hacer lo siguiente con seters
-    miEmpleado->id = 8;
-    strcpy(miEmpleado->name, "Juan");
-    strcpy(miEmpleado->lastName, "Gomez");
-    miEmpleado->isEmpty = 1;
-    int i;
-
-    al_add(listaEmpleados, miEmpleado);
-
-    aux = (Employee*) al_get(listaEmpleados, 0);//Lo casteo con puntero a Employee
-
-    printf("%d------%s\n", aux->id, aux->name);//tambien con seters, a veces no se ven los campos pero es normal
-
-    printf("%d\n", al_len(listaEmpleados));
-
-
-    otroEmpleado->id = 9;
-    strcpy(otroEmpleado->name, "Ana");
-    strcpy(otroEmpleado->lastName, "Ruiz");
-    otroEmpleado->isEmpty = 1;
-
-    al_add(listaEmpleados, otroEmpleado);
-
-    for(i=0;i<al_len(listaEmpleados);i++)
+    while(salir == 0)
     {
-        aux = (Employee*) al_get(listaEmpleados, i);
-        printf("%d------%s\n", aux->id, aux->name);
+        printf("1- Parsear el archivo\n");
+        printf("2- Listar empleados\n");
+        printf("3- Ordenar por nombre\n");
+        printf("4- Agregar un elemento\n");
+        printf("5- Eliminar un elemento\n");
+        printf("6- Listar empleados (Desde/ hasta)\n");
+        printf("7- Salir\n");
+        scanf("%d", &opcion);
+
+        switch(opcion)
+        {
+            case 1:
+                system("cls");
+                ok = parserEmployee(lista, "data.csv");
+
+                if(ok == 0)
+                {
+                    printf("Parseado exitoso\n");
+                }
+                break;
+            case 2:
+                system("cls");
+                employee_printAll(lista);
+                break;
+            case 3:
+                system("cls");
+                ok = al_sort(lista, employee_compare, 0);
+
+                if(ok == 0)
+                {
+                    printf("Ordenado exitosamente\n");
+                }
+                else
+                {
+                    printf("No se pudo ordenar\n");
+                }
+                break;
+            case 4:
+                system("cls");
+                employee_add(lista);
+                break;
+            case 5:
+                system("cls");
+                employee_delete(lista);
+                break;
+            case 6:
+                system("cls");
+                printf("Ingrese la posicion desde la que quiere imprimir\n");
+                scanf("%d", &desde);
+                printf("Ingrese la posicion hasta la que quiere imprimir\n");
+                scanf("%d", &hasta);
+                employee_printLots(lista,desde, hasta);
+                break;
+            case 7:
+                system("cls");
+                salir = 1;
+                break;
+            default:
+                printf("El numero ingresado es incorrecto\n");
+        }
+
 
     }
 
 
-    //Paso una funcion con el ordenamiento a la funcion sort mediante un puntero de funcion, eso se llama delegamiento
 
     return 0;
 }

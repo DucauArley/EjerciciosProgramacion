@@ -1,1 +1,1 @@
-int parserEmployee(File* pFile , ArrayList* pArrayListEmployee);
+int parserEmployee(ArrayList* pArrayListEmployee, char*);
