@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1531416336 source:c:\users\arleyzohan\desktop\parcialmensajes\arraylist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
+1531416336 c:\users\arleyzohan\desktop\parcialmensajes\arraylist.h
+
+1531416801 source:c:\users\arleyzohan\desktop\parcialmensajes\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"ArrayList.h"
+
